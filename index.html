@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=5">
+<title>Nursing Study</title>
+<meta name="description" content="Nursing exam study apps: OB and Leadership.">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Nursing Study">
+<meta name="theme-color" content="#0f766e" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b1416" media="(prefers-color-scheme: dark)">
+<style>
+  :root{
+    --bg:#eef4f3; --surface:#ffffff; --surface-2:#f1f6f5;
+    --ink:#17262b; --ink-soft:#586a70; --ink-faint:#8a9a9e;
+    --teal:#0f766e; --teal-deep:#0b5048; --teal-wash:#e6f3f0; --teal-line:#c6e2dc;
+    --line:#e0e8e9; --shadow:0 1px 2px rgba(16,40,45,.05),0 8px 26px rgba(16,40,45,.06); --radius:16px;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --bg:#0b1416; --surface:#152123; --surface-2:#1b2a2d;
+      --ink:#e9f1f1; --ink-soft:#a4b6b8; --ink-faint:#7a8d90;
+      --teal:#2dd4bf; --teal-deep:#5eead4; --teal-wash:#123230; --teal-line:#245049;
+      --line:#26383b; --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.35);
+    }
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg); color:var(--ink); line-height:1.5; -webkit-font-smoothing:antialiased;
+    padding:env(safe-area-inset-top) env(safe-area-inset-right) calc(2rem + env(safe-area-inset-bottom)) env(safe-area-inset-left);
+  }
+  .wrap{max-width:720px;margin:0 auto;padding:0 1rem;}
+  .hero{padding:2.6rem .25rem 1.2rem;}
+  .badge{display:inline-flex;align-items:center;gap:.5rem;font-size:.82rem;font-weight:600;color:var(--teal-deep);
+    background:var(--teal-wash);border:1px solid var(--teal-line);padding:.35rem .75rem;border-radius:999px;margin-bottom:1rem;}
+  .badge .dot{width:16px;height:16px;border-radius:5px;background:var(--teal);display:inline-block;}
+  h1{font-size:clamp(2rem,7vw,2.7rem);line-height:1.02;margin:0 0 .5rem;letter-spacing:-.02em;font-weight:700;}
+  .hero p{font-size:1.02rem;color:var(--ink-soft);margin:0;max-width:52ch;}
+  .grid{display:grid;grid-template-columns:1fr;gap:.75rem;margin-top:1.4rem;}
+  @media(min-width:560px){.grid{grid-template-columns:1fr 1fr;}}
+  a.card{
+    text-decoration:none;color:inherit;background:var(--surface);border:1px solid var(--line);
+    border-radius:var(--radius);padding:1.15rem 1.2rem;box-shadow:var(--shadow);
+    display:flex;flex-direction:column;gap:.3rem;min-height:120px;transition:transform .12s,border-color .12s;
+  }
+  a.card:active{transform:scale(.985);}
+  a.card:hover{border-color:var(--teal-line);}
+  .ctop{display:flex;align-items:center;gap:.6rem;}
+  .ci{width:40px;height:40px;border-radius:11px;flex:0 0 auto;display:flex;align-items:center;justify-content:center;
+    color:#fff;font-weight:700;font-size:1.05rem;background:var(--teal);}
+  .card.ob .ci{background:var(--teal-deep);}
+  .card.lead .ci{background:linear-gradient(135deg,var(--teal),var(--teal-deep));}
+  h2{font-size:1.1rem;margin:0;font-weight:700;}
+  .desc{font-size:.9rem;color:var(--ink-soft);margin:.1rem 0 0;}
+  .go{margin-top:auto;padding-top:.6rem;font-size:.82rem;font-weight:700;color:var(--teal-deep);}
+  .tip{margin-top:1.4rem;background:var(--surface);border:1px dashed var(--teal-line);border-radius:14px;
+    padding:.9rem 1.05rem;font-size:.88rem;color:var(--ink-soft);display:flex;gap:.7rem;align-items:flex-start;}
+  .tip b{color:var(--ink);}
+  footer{color:var(--ink-faint);font-size:.78rem;text-align:center;padding:1.8rem 1rem 0;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hero">
+    <span class="badge"><span class="dot"></span>Nursing School</span>
+    <h1>Study Apps</h1>
+    <p>Tap an exam to open its study guide and question bank. Each one works offline once you add it to your home screen.</p>
+  </div>
+
+  <div class="grid">
+    <a class="card ob" href="ob-exam-1.html">
+      <div class="ctop"><span class="ci">OB</span><h2>OB &middot; Exam 1</h2></div>
+      <div class="desc">Maternal &amp; child health, fetal development, pregnancy, labor &amp; birth (Ch 1&ndash;2, 10, 11&ndash;12, 13, 14).</div>
+      <div class="go">Open &rsaquo;</div>
+    </a>
+    <a class="card ob" href="ob-exam-2.html">
+      <div class="ctop"><span class="ci">OB</span><h2>OB &middot; Exam 2</h2></div>
+      <div class="desc">Postpartum adaptations &amp; assessment, newborn transition &amp; management (Ch 15, 16, 17, 18).</div>
+      <div class="go">Open &rsaquo;</div>
+    </a>
+    <a class="card lead" href="leadership-exam-1.html">
+      <div class="ctop"><span class="ci">L1</span><h2>Leadership &middot; Exam 1</h2></div>
+      <div class="desc">Core competencies, ethics, and legal aspects of nursing (Ch 1, 4, 5).</div>
+      <div class="go">Open &rsaquo;</div>
+    </a>
+    <a class="card lead" href="leadership-exam-2.html">
+      <div class="ctop"><span class="ci">L2</span><h2>Leadership &middot; Exam 2</h2></div>
+      <div class="desc">Communication, healthy work environment, and delegation (Ch 8, 12, 14).</div>
+      <div class="go">Open &rsaquo;</div>
+    </a>
+  </div>
+
+  <div class="tip">
+    <span>&#128241;</span>
+    <div><b>Add to your iPad home screen.</b> In Safari, tap the <b>Share</b> button, then <b>Add to Home Screen</b>. Do it on this page for a launcher, or inside any exam to pin that one directly.</div>
+  </div>
+
+  <footer>Study aids built from lecture slides &mdash; always defer to course materials and instructor.</footer>
+</div>
+</body>
+</html>
