@@ -116,5 +116,244 @@
 
   <footer>Study aids built from lecture slides &mdash; always defer to course materials and instructor.</footer>
 </div>
+
+<!-- ===================== STUDY GAME (landing): avatar + closet ===================== -->
+<script>
+(function(){
+  "use strict";
+  var ASSETS = {"base":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAsCAYAAAAEuLqPAAABsUlEQVR4Xu2WsUvDQBTGn0WpBBUREVEqgg7i7iaCi39FB+mQ0cm/wclZRKQISkHBf8BZHHQRB3FQKBaLSClSpVgdlJf6YnIk9X2FIMH7QWgvud738t3ddyWy/Hd6UAPGhqc+7042I382s7JOT8/30JgZpIBO4gwXxn2QMaECkiA9Bfxmv4BOQ3ocCLKcL3mXYLYRunKg4K4RZXp9HbON0FUBxd2tkIbZRvh5DSWt6yadXR16vVuXx96ntBulfcrOO8qR2kAFPJRviRyi7LewIIXUnCpRGdLXTwFH7JK7HRr94uDUu4JwHySOIQeYyelZX28hvxgSDz7TAh0cjGS9eSDxQcQgbw+vARHgIrz1YICKM5ADLLyzV6RcbiLS4UqlSu5qASpElQMsfHO0Efs/IAhPDffVHsuqApLEFpA+B3iVx9HpWRxqB5CUQ/rCUcw5wPs9Cn5GVIc2jTqIZF+3ReKRadCmotoBHpCLmHs/9y2W/JdzQeJZK86o10BS2AKsA9YB6wAUxX39Dg0ODPmZVK89et9HRsf9ey+vDfp4a6rT0E6B+jAS2GKTqHta/nwKvgDHpp1405xIowAAAABJRU5ErkJggg==","hair_dark":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAsCAYAAAAEuLqPAAABGUlEQVR4Xu2WoQ7CMBRFC0Ei0NNkGkHQKDSCz0HyOQg0Ck0Q6AU9jcBDnmjyAuvevSUNW+hJJlgu69ltu825zI8ZMONPi8UTyd/qM3xdKKgHnpWrD4drdWz0QkRMAfSuQ1gSQ6TSlHRbQOqfjAsnx3uV8lsfuiWdtaZwxNYbmlN/Xg8o4vdH3ToEPAWb5RbagsK8XMNZWGB/2pk7xnOpDnAWFkhFvwRkUVkgGQ3VADK3SCZKgNkFDHAD8sKxHiqCZJCcBxZg5pbJwgLWE03DZGGBVPRDgKmUBWqAWVQskIDASDBZWICZBp9F/gMLpAISQO4kFkjAE/oc0yCZqJdRKqgGUtAqwNbZhHWNbjcgsF843yzITCaT+U9evsdk/d9sPysAAAAASUVORK5CYII=","hair_black":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAsCAYAAAAEuLqPAAABGElEQVR4Xu2WsQ3CMBREDWKCFEBJCwOElgkyA6MxQyagJQNASwkUWQH0C0tfEOffGVkkwk9KQXTEL2c7iXOZHzNhxl8uVk8kf7tf4etCQT1wud19ODSnY6cXImIKoHcdwpKYIpWmZNgCUn9RzJ0c71XKb33olnTWmsIZW29oTv15PaCIt+2jdwh4CqpqD21BYbMu4SwsUNcHc8d4zpcGzsICqRiXgCwqCySjoRpA5hbJRAkwu4ABbkBeONZDRZAMkvPAAszcMllYwHqiaZgsLJCKcQgwlbJADTCLigUSEBgJJgsLMNPgs8h/YIFUQALIncQCCXhCn2MaJBP1MkoF1UAKegXYOruwrjHsBgT2C+ebBZnJZDL/yQurVmZGu7jyvAAAAABJRU5ErkJggg==","hair_brown":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAsCAYAAAAEuLqPAAABG0lEQVR4Xu2WMQrCMBiFozg7Ooqjkzh6AimepJOHcepJpHgCR3FyFEdHL6D8Q+BHm/7vRYIt5oMOlmfz9SVp61zmxwyY8TfL2RPJ709X+LpQUA9crOYfDvXx0uiFiJgC6F2HsCSGSKUp6baA1D+djJ0c71XKb33olnTWmsIRW29oTv15PaCI3+6P1iHgKdiVBbQFhXK9gLOwwLaqzR3jqQ5nOAsLpKJfArKoLJCMhmoAmVskEyXA7AIGuAF54VgPFUEySM4DCzBzy2RhAeuJpmGysEAq+iHAVMoCNcAsKhZIQGAkmCwswEyDzyL/gQVSAQkgdxILJOAJfY5pkEzUyygVVAMpaBVg62zCuka3GxDYL5xvFmQmk8n8Jy+KO2Obd61sBwAAAABJRU5ErkJggg==","hair_auburn":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAsCAYAAAAEuLqPAAABI0lEQVR4Xu2WPQ4BQRiGlziAygFUCpVCHEChUDqEShxFVA6hVCgcQBQqhcoBVG5APskkEz8zz7vJhE3mKXl355n3M3aLIvNjasr6817nTvKL4xnfFwX9hcf97pvD5nD66EVEogJ019+ISdRJpSn5uUBwBFZ/u9V8FjDb7mv+OF6rff0ulPVpqPV+m6n73F/Y5C/XW3AJPILddIKOoLEcDXAWCwxX6+iJcdi4aLNYIBXVEnAnIgTJ+EgNkNmSTCkB5RQo4AbsgUOeC5YhOQcWUGarZLFA7B/NR8ligVRUQ0CpVAU1oPyoVJCAoUgoWSygjMFlyTVYIBVIgOykLEjAEXvFNkim1MMoFVIDKQgKqHV+InaP/27AUN9wfGK7z2QymYzxAD9BYHhDe3hDAAAAAElFTkSuQmCC","hair_bob":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAsCAYAAAAEuLqPAAAAw0lEQVR4XmNgGAUDDBhJsV9Fyuw/MervPDtFtLlEKUS22EDNDcMNF27twuouYhxC0AHE+hoXIOQIJmKClJZgcDsAFPwCPFIMIIwelCA+MkYOJWS1hKKQhdTgxRWnMHFCFqKDwR0F9ACjIUBSCIByAyFAjBpkQJIDztzaQLDkJEYN2Q6gBSApBGgBhoYDPnx5RlIJR0ppiDcE0ItdE7UAgg0SdDW4im6SAMhHpPiKVPWjYBSMglEwCkbBKBgFo2AUjGwAACF4QVMwO7H2AAAAAElFTkSuQmCC","hair_bun":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAsCAYAAAAEuLqPAAAAo0lEQVR4Xu3TPQ5AQBQEYESpUKtFrRBHUDuvI6jUonYNspJN/K55Lzaa+RqNtzs7Sxgo5Fm9nMemuQ8VSwWRdMhuXhbNNmqfd6EQ4tSujTQtiBt42kSzuSFq4Hx6W/8wdoe2JWHgANI7RkOIr+BrsWbBp9NJWzKgBqqivfz3b9AZKIBPcABTe5pkzo8LeUcFrXMPnYEb8IUB2AARERERERH9bgVZODGbVBNqIAAAAABJRU5ErkJggg==","hair_pony":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAsCAYAAAAEuLqPAAAA7UlEQVR4Xu2WPQvCMBCGqzg6OEpncRJx8if4cx0c+xOcnMW5s4O7ckIgpOndm9YXRe6ZSrkkT+6DtqqcLzMpOX9V759I/K09w/vCgeHw3frQcbhcm847VAISQG8eOG6W78dtczL3nyIpHYqIW/KmYcDaSEMrx0xdqZBumhOUfsn1R0xxBqzm6stU3zq4B6yDYyQWjYcFhpAb2RSqgNR/Ma9Vd6qAcH+0nxOwbiPEMUgJ4CkoJZ2G0VMwBm0iqD2AlIAq8H9TUApSAsoUoBMgUHsAgSrwEyWwvorUDCBQBZASUAWs3zHHcRzHcRzhBREXTIccRAx1AAAAAElFTkSuQmCC","out_uniform":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAsCAYAAAAEuLqPAAAAuElEQVR4XmNgGAWjYBSMglEwCkbBKBgFAwwYSbX/2s1H/+VlxcHaHj5+CaaR+VrqciSZyUSqA6gNWCgxEOZzSsCAh8CoA0hKsTDw9dvP/9jinZuLnWTzyEqEsOxHDUCSi/WM/LD6HB1cOreJaHOJToTEWg4CpKglygHySub/+QREGD5+gJR8IJoQn1hHEOUAEPj04Q1KSBPiEwuIdgCtAFGJBRQF5Djg4b2TRJk/CkbBKBgFo2BAAQDHbjlXH62E5gAAAABJRU5ErkJggg==","out_scrubs":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAsCAYAAAAEuLqPAAAAkUlEQVR4XmNgGAWjYBSMglEwCkbBKBgFAwwYSbVfLCP6P6eSLFZt3+89Zng1YylJZjKR6gBqA7IdAPItDCCzSQVkOwA5GnBFCTGAbAdQCww9B+BL5aTmABBgIScoKUl06ICkPAsC8l0V//E5+mFZB0lmDr00gBz8IN8i+5icqBl6IUBtMBoCoyEwGgKjYBSMAgAHxiFfsmI5EwAAAABJRU5ErkJggg==","out_hoodie":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAsCAYAAAAEuLqPAAAA0klEQVR4XmNgGAWjYBSMglEwCkbBKBgFAwwYSbX/SF7ff3x6bCYVkWQmEykOeNS1Cq/lIECMGmTAQooDYEBORgartkdPnmAVxwdICgF0ALKQHEspDgFCIUEKoCgEqAFIdgC+VE5qDgABkhKhXFkYOIvhi3eYGmIBSXlWz8iPYDYEgUvnNhFtLtFRQKzlIECKWqIcIK9k/p9PQITh44eXYAtANCE+sY4gygEg8OnDG5RoJcQnFhDtAFoBohILKArIccDDeyeJMn8UjIJRMApGwYACAEvHQjANMJ+VAAAAAElFTkSuQmCC","out_labcoat":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAsCAYAAAAEuLqPAAAAvUlEQVR4XmNgGAWjYBSMglEwCkbBKBgFAwwYSbH/2s1H/5UUpBj+/v2LVRszMzPDvQfPGLTU5Yg2l4kUB9ACDD0HuDiHUDUgSA6BPXvXDKwDqA1IDgFqAxZyDHz4+CVWbaAsSiogyQERkTmkmk8QEB0FekZ+/wmaBgWkqCXKAfJK5v/5BEQYPn6ABD2IJsQn1hFEOQAEPn14gxIAhPjEAqIdQCtAVKUBigJyHPDw3kmizB8Fo2AUjIJRMKAAALl/NX+7XDLJAAAAAElFTkSuQmCC","out_gown":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAsCAYAAAAEuLqPAAAAaUlEQVR4XmNgGAWjYBSMglEwCkbBKBgFAwwYSbFfSlzrPw+3AMOxJQoMVjEPGL58/QDWji727OU1os1lIsUBtACjDhgNgdEQGA2B0RAguswGAVhdAAPIdQGy2JCqC0bBKBgFo2AUDDgAAP0IGhvvGZ2YAAAAAElFTkSuQmCC","out_qipao_red":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAsCAYAAAAEuLqPAAAA9ElEQVR4Xu2WIQ7CMBSGCweY2gEICjWBQiA4BYJkCZqjcAA0ihMQToBAIaZQhANM7QIlv2hSxtrtb5sQkvcly7pl7fv294kqJQiCIAiC8K9cp4U27vaYZcxOAKZgfdtqXPY7lhE74ZBPdJFlndOqplG7+kWtSSWA4qiMQi7MN0OhBMyf4z47zTtruNJxQQnYPDZ3bxJDoQSWz+pjf9fn1ZdE+5s+KIE2SAGR+3qijygBgF6IkYgWQAqAbT4DLeArFCJBC6SGFrAbDuP2MwstkBoRSJYAeqG87OkdSiYQUhwkEwhFBKjjEzBnQBf54kivKQg/5Q1m8Ur38TaVCAAAAABJRU5ErkJggg==","out_qipao_blue":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAsCAYAAAAEuLqPAAAA9klEQVR4Xu2WMQ6CMBSGq2F2cmJwNJ7BeAZP4OAZHD2Ao4cwHMUYZyd1dGBiYnMR8w8vqdgCf+mgyfsSQiGU9/H3JdQYRVEURVGUf2U231bibo9ZhuwEIAWL87rCYd9jGbAT0umqGo0nzmll8TD5PaPeSSWA4qiMQj7kma5QAvLlOB/3ubOGLx0flIDNYpM2JtEVSuB62n2s7+WQfEnUn2mDEqiDFBB5U0+00UsAoBf6SPQWQAqAbT6BFmgqFCJBC8SGFrAbDuP6NQstEBsViJYAeuGWLekViiYQUhxEEwhFBRI2OvyCjZHNiEzPzfPl3qAoys/zBj5OS7kTyxWXAAAAAElFTkSuQmCC","out_hanfu":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAsCAYAAAAEuLqPAAAA9klEQVR4Xu2UPQrCQBCFV/EcKYKIlaWFpbWVlVXwKIsn8AwexDKFZSoRCZIqJ7CNzMKaIUh2ZxPZ5n3VZH9mXh6zoxQAAAAAAAjk/aobe5XHUqbSC/frraGCVVmZwjymPWm+mesCJU3S5HuMChO0xuNfbtD+crue9NUQOzA2wQLo78gF7kQIQQJsccsQEc4e6JJfCrOUq0I9yqeJF+m8FaPbfvFBLIDDC4ciFrDJVsZy4pSdjYiD3plv+yokBPXAmHg5wN87nwld7J7ECZEDPol9znCcDvBJ5jtqXdOPI3LgH0BAdAecTdjHUe8Ht0V0ByAAgOh8ADwLX5lYmhovAAAAAElFTkSuQmCC","hat_bow":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAsCAYAAAAEuLqPAAAAV0lEQVR4Xu3QsQmAMBAF0CjOkBmsHMPSYS0dw8oZsoQSQVCwSTrxve6Kf/+4EPi7pvQB6zjtObOl9Ij2MZ7zsMxFO9vSA+5y6VVcq6sNvn0BAAAAAD7pAFEJClxgf2tvAAAAAElFTkSuQmCC","hat_nurse":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAsCAYAAAAEuLqPAAAAXklEQVR4XmNgGAUDDBhJsf/rt5//kdXfDQgFc5U3rEYxhpuLnWhzmUhxAC0A0S4FgWs3H6GEAC6gpS5HkrmjYBSMglEwCkbBKBgFo2AUjIJRMApGwSgYBaNgFIxsAABexwsFHqqhXQAAAABJRU5ErkJggg==","hat_flower":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAsCAYAAAAEuLqPAAAAW0lEQVR4Xu3PsQ2AMAxE0YThUqZMwRAMQknBCCk8DgUDsIjRZQKnQDT/SSe5OJ3klICgZzdXVLfzdkX3VaorulfbXAlODstM+Qs5Ojr7WW9HeBsAAAAAAAD41Qs+RhoE9JZkxQAAAABJRU5ErkJggg==","hat_grad":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAsCAYAAAAEuLqPAAAAaElEQVR4Xu3QIQqAQBCF4RFsGgyCYFoMBpN5z7tYvcUewGjwKoom275NIvxffsy8GTN8rMjZPw7+VPL7EeW5pTIwRwzOzNxTtPVLskgycOu7Sbr8bVtnqYD0gbpqcp4AAAAAAAAA/MsFdxIL0E/w0WcAAAAASUVORK5CYII=","hat_crown":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAsCAYAAAAEuLqPAAAAZ0lEQVR4Xu3QvQmAMBCG4RMsLa0cxVGcJtM4ikOIlYVVSvuEEwTL+0glvA+ES5H7yZmhQd6W4qehhCbSLPLmq9dGsKfBlW6b0mAe3Xv3qOqUhOjvxnkN15U2cOynMi8AAAAAAADwDxUzeh7ZNpt7TQAAAABJRU5ErkJggg==","acc_glasses":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAsCAYAAAAEuLqPAAAAT0lEQVR4Xu3NMQqAMAwF0Aoeq1NPIHhRD9FTFaTi4GBxSReX9yDDh/wkJQB+tsz8z3nrX71aj6l7Ya2d/Z6nOOaINbL8KGV/1cYMAAAARFzCtBV0q/N62QAAAABJRU5ErkJggg==","acc_sun":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAsCAYAAAAEuLqPAAAAUUlEQVR4Xu3OoRGAMAwF0MJcHQKN6mhVaIboXnAVEdwhWsFh3pP/kvykBMDPltn+nLdrLyUdtT5WI2vtnLo5Ndz1B6I5yt6yUevoIAAAAPCVG/eBEgX3tePsAAAAAElFTkSuQmCC","acc_steth":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAsCAYAAAAEuLqPAAAAUElEQVR4Xu3QsQnAIBAFUMlwVhkiU6VyiGyoWAgWIUUMBuE9OLjq7vNDAABYVdyP3LL3+xR3D9+G2KYkfiCABn5vYMiZrlxn5MjaDQAAfKEAHqINlb+e9kUAAAAASUVORK5CYII=","acc_cat":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAsCAYAAAAEuLqPAAAAc0lEQVR4Xu3TwQmAMAyF4eocRTw5kNM4n2N4EskelgiVou3NSA7/d0kpJQ2PNgQAAAAAAABvhjideaZybaV7Nq5desj2OveVvtZoWedrO1fLJJoJxDgGkf2ezyqFagKqvNxSc4C/MIC/BPT1q1yV1Q9wIQHtjBg/ZdOihwAAAABJRU5ErkJggg==","acc_violin":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAsCAYAAAAEuLqPAAAAwUlEQVR4XmNgGAWjYBSMglEwCkbBKBgFaKDEQek/PQOFCd0yDRkBhjkxRnR1BAp49+rRf3qGAkYI0BuMOgAlBGBxD0qI9EoHJEUBLRxFtAPObmn533PgHiO1EylRDgBZbuxTQ3XLQQCrA248+QD3KC0tx+kAGKC15XgdEFmSxECrYEcGWKMAZPnynnnUTm9YAYYD7p9axHB+xTq6WI4RBSCfK5rF0c1yEGBBTnCgYNeQoZ/v4YAWJdwoGAWjYBQQCwD4VDbKWN8ErQAAAABJRU5ErkJggg=="};
+  var IMG = {};
+  Object.keys(ASSETS).forEach(function(k){ var im=new Image(); im.src=ASSETS[k]; IMG[k]=im; im.onload=refreshAll; });
+
+  // own storage wrapper (same keys => shared with every exam on this site)
+  var store=(function(){ var ok=false,mem={}; try{localStorage.setItem("__t","1");localStorage.removeItem("__t");ok=true;}catch(e){ok=false;}
+    return { get:function(k){try{return ok?localStorage.getItem(k):mem[k];}catch(e){return mem[k];}},
+             set:function(k,v){try{ok?localStorage.setItem(k,v):(mem[k]=v);}catch(e){mem[k]=v;}} }; })();
+
+  var BGS = {
+    bg_sky:{name:"Sky",fill:"#7eb0e0"}, bg_mint:{name:"Mint",fill:"#8fcbb0"},
+    bg_sunset:{name:"Sunset",grad:["#f3b07a","#e88fa0"]}, bg_lav:{name:"Lavender",fill:"#b2a0d8"},
+    bg_night:{name:"Starry Night",fill:"#232146",stars:true}
+  };
+  var CAT = {
+    outfit:[{id:"out_uniform",name:"Uniform",cost:0},{id:"out_scrubs",name:"Teal Scrubs",cost:120},
+            {id:"out_hoodie",name:"Pink Hoodie",cost:150},
+            {id:"out_qipao_red",name:"Red Qipao",cost:200},{id:"out_qipao_blue",name:"Blue Qipao",cost:200},
+            {id:"out_hanfu",name:"Hanfu",cost:260},
+            {id:"out_labcoat",name:"Lab Coat",prize:800},{id:"out_gown",name:"Grad Gown",prize:1800}],
+    hair:[{id:"hair_dark",name:"Long · Dark",cost:0},{id:"hair_brown",name:"Long · Brown",cost:60},
+          {id:"hair_auburn",name:"Long · Auburn",cost:60},{id:"hair_black",name:"Long · Black",cost:60},
+          {id:"hair_bob",name:"Bob",cost:90},{id:"hair_bun",name:"Top Bun",cost:90},
+          {id:"hair_pony",name:"Ponytail",cost:90}],
+    hat:[{id:"hat_none",name:"No hat",cost:0},{id:"hat_bow",name:"Red Bow",cost:80},
+         {id:"hat_nurse",name:"Nurse Cap",cost:140},{id:"hat_flower",name:"Flower Crown",prize:300},
+         {id:"hat_grad",name:"Grad Cap",prize:1800},{id:"hat_crown",name:"Gold Crown",prize:3500}],
+    acc:[{id:"acc_none",name:"None",cost:0},{id:"acc_glasses",name:"Glasses",cost:90},
+         {id:"acc_sun",name:"Sunglasses",cost:110},{id:"acc_steth",name:"Stethoscope",cost:160},
+         {id:"acc_violin",name:"Violin",cost:150},{id:"acc_cat",name:"Black Cat",cost:180}],
+    bg:[{id:"bg_sky",name:"Sky",cost:0},{id:"bg_mint",name:"Mint",cost:100},
+        {id:"bg_sunset",name:"Sunset",cost:130},{id:"bg_lav",name:"Lavender",cost:130},
+        {id:"bg_night",name:"Starry Night",cost:250}]
+  };
+  var PRIZES = [
+    {at:300,id:"hat_flower",label:"Flower Crown 🌸"},{at:800,id:"out_labcoat",label:"Lab Coat 🥼"},
+    {at:1800,id:"out_gown",label:"Graduation Gown 🎓",also:"hat_grad",alsoLabel:"Grad Cap"},
+    {at:3500,id:"hat_crown",label:"Gold Crown 👑"}
+  ];
+  var SLOT_LABEL={outfit:"Outfit",hair:"Hair",hat:"Hat",acc:"Accessory",bg:"Background"};
+  var TABS=["outfit","hair","hat","acc","bg"];
+  var DEF_OWNED=["out_uniform","hair_dark","hat_none","acc_none","bg_sky"];
+  var DEF_EQUIP={outfit:"out_uniform",hair:"hair_dark",hat:"hat_none",acc:"acc_none",bg:"bg_sky"};
+
+  function gi(k,d){ try{ var v=store.get(k); return (v==null)?d:v; }catch(e){ return d; } }
+  function jp(v,d){ try{ return JSON.parse(v); }catch(e){ return d; } }
+  var state={
+    pts:parseInt(gi("ns_pts","0"))||0, earned:parseInt(gi("ns_earned","0"))||0,
+    owned:jp(gi("ns_owned",JSON.stringify(DEF_OWNED)),DEF_OWNED.slice()),
+    equip:jp(gi("ns_equip",JSON.stringify(DEF_EQUIP)),Object.assign({},DEF_EQUIP))
+  };
+  if(!state.equip||typeof state.equip!=="object") state.equip=Object.assign({},DEF_EQUIP);
+  if(!state.equip.hair) state.equip.hair="hair_dark";
+  if(state.owned.indexOf("hair_dark")<0) state.owned.push("hair_dark");
+
+  function gOn(){ return gi("ns_game_on","1")!=="0"; }
+  function nOn(){ return gi("ns_notes_on","1")!=="0"; }
+  function setGame(v){ store.set("ns_game_on",v?"1":"0"); }
+  function setNotes(v){ store.set("ns_notes_on",v?"1":"0"); }
+  function save(){ store.set("ns_pts",String(state.pts)); store.set("ns_earned",String(state.earned)); store.set("ns_owned",JSON.stringify(state.owned)); store.set("ns_equip",JSON.stringify(state.equip)); }
+  save();
+  function has(id){ return state.owned.indexOf(id)>=0; }
+  function costOf(it){ return it.prize?null:(it.cost||0); }
+
+  /* ---- drawing ---- */
+  function paintBG(ctx,W_,H_,bgId){
+    var bg=BGS[bgId]||BGS.bg_sky;
+    if(bg.grad){ var g=ctx.createLinearGradient(0,0,0,H_); g.addColorStop(0,bg.grad[0]); g.addColorStop(1,bg.grad[1]); ctx.fillStyle=g; }
+    else ctx.fillStyle=bg.fill||"#7eb0e0";
+    ctx.fillRect(0,0,W_,H_);
+    if(bg.stars){ ctx.fillStyle="#fff"; var u=W_/32; [[5,6],[26,8],[12,4],[21,30],[8,35],[24,21],[16,3]].forEach(function(s){ ctx.fillRect(Math.round(s[0]*u),Math.round(s[1]*u),Math.ceil(u),Math.ceil(u)); }); }
+  }
+  function paintLayers(ctx,W_,H_,layers){ layers.forEach(function(id){ var im=IMG[id]; if(im&&im.complete&&im.naturalWidth) ctx.drawImage(im,0,0,W_,H_); }); }
+  var CANVASES=[];
+  function mkCanvas(scale,layersFn,bgFn){
+    var c=document.createElement("canvas"); c.width=32*scale; c.height=44*scale;
+    var ctx=c.getContext("2d"); ctx.imageSmoothingEnabled=false;
+    c._draw=function(){ ctx.imageSmoothingEnabled=false; ctx.clearRect(0,0,c.width,c.height); paintBG(ctx,c.width,c.height,bgFn()); paintLayers(ctx,c.width,c.height,layersFn()); };
+    c._draw(); CANVASES.push(c); return c;
+  }
+  function equippedLayers(){ return ["base",state.equip.outfit,state.equip.hair,state.equip.hat,state.equip.acc]; }
+  function refreshAll(){ CANVASES.forEach(function(c){ try{c._draw();}catch(e){} }); }
+
+  /* ---- styles ---- */
+  var css=document.createElement("style");
+  css.textContent=
+  ".closet-launcher{display:flex;align-items:center;gap:.8rem;width:100%;margin:1.1rem 0 0;padding:.7rem .9rem;background:var(--surface,#fff);border:1px solid var(--line,#e3eaec);border-radius:16px;box-shadow:var(--shadow,0 6px 24px rgba(27,42,48,.06));cursor:pointer;text-align:left;font:inherit;color:inherit;transition:transform .12s;}"+
+  ".closet-launcher:active{transform:scale(.99);}"+
+  ".closet-launcher canvas{width:40px;height:55px;image-rendering:pixelated;border-radius:8px;background:#7eb0e0;flex:0 0 auto;}"+
+  ".cl-txt{display:flex;flex-direction:column;line-height:1.2;}"+
+  ".cl-txt b{font-size:1.02rem;color:var(--ink,#17262b);} .cl-txt span{font-size:.82rem;color:var(--teal-deep,#0b5048);font-weight:600;}"+
+  ".ns-gearrow{display:flex;justify-content:flex-end;margin:.2rem 0 -.4rem;}"+
+  ".ns-gear{background:var(--surface,#fff);border:1px solid var(--line,#e3eaec);border-radius:999px;width:38px;height:38px;cursor:pointer;font-size:1.15rem;line-height:1;color:var(--ink-soft,#586a70);box-shadow:var(--shadow);}"+
+  ".ns-gear:active{transform:scale(.95);}"+
+  ".lc-overlay{position:fixed;inset:0;z-index:9998;background:var(--bg,#eef4f3);overflow:auto;padding:1.1rem;padding-top:calc(1.1rem + env(safe-area-inset-top));}"+
+  ".lc-overlay.hidden{display:none;} .lc-sheet{max-width:720px;margin:0 auto;}"+
+  ".cg-topbar{display:flex;align-items:center;gap:.6rem;margin-bottom:1rem;} .cg-topbar h2{margin:0;font-size:1.3rem;}"+
+  ".cg-back{background:none;border:none;font-size:1rem;color:var(--ink-soft,#586a70);cursor:pointer;padding:.3rem .2rem;font-weight:600;}"+
+  ".cg-hud{display:flex;align-items:center;gap:1rem;background:var(--surface,#fff);border:1px solid var(--line,#e3eaec);border-radius:18px;padding:1rem;margin-bottom:1rem;box-shadow:var(--shadow);}"+
+  ".cg-hud canvas{width:88px;height:121px;image-rendering:pixelated;border-radius:12px;flex:0 0 auto;}"+
+  ".cg-hud .cg-info{flex:1 1 auto;min-width:0;}"+
+  ".cg-pts{font-size:1.5rem;font-weight:700;color:var(--ink,#17262b);} .cg-pts small{font-size:.8rem;font-weight:600;color:var(--ink-soft,#586a70);}"+
+  ".cg-prog{height:8px;border-radius:99px;background:var(--surface-2,#eef4f3);overflow:hidden;margin:.5rem 0 .3rem;}"+
+  ".cg-prog i{display:block;height:100%;background:linear-gradient(90deg,#be123c,#e8a0a0);}"+
+  ".cg-next{font-size:.8rem;color:var(--ink-soft,#586a70);}"+
+  ".cg-tabs{display:flex;gap:.4rem;margin-bottom:.9rem;flex-wrap:wrap;}"+
+  ".cg-tab{flex:1 1 auto;padding:.5rem .4rem;border-radius:10px;border:1px solid var(--line,#e3eaec);background:var(--surface,#fff);color:var(--ink-soft,#586a70);font-weight:600;font-size:.86rem;cursor:pointer;}"+
+  ".cg-tab.on{background:var(--teal,#0f766e);color:#fff;border-color:var(--teal,#0f766e);}"+
+  ".cg-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:.6rem;padding-bottom:2rem;}"+
+  ".cg-item{border:1px solid var(--line,#e3eaec);border-radius:14px;background:var(--surface,#fff);padding:.5rem;text-align:center;display:flex;flex-direction:column;align-items:center;gap:.25rem;}"+
+  ".cg-item.eq{border-color:var(--teal,#0f766e);box-shadow:0 0 0 2px var(--teal,#0f766e) inset;}"+
+  ".cg-item canvas{width:52px;height:71px;image-rendering:pixelated;border-radius:8px;}"+
+  ".cg-nm{font-size:.76rem;font-weight:600;color:var(--ink,#17262b);line-height:1.1;}"+
+  ".cg-btn{width:100%;border:none;border-radius:8px;padding:.32rem;font-size:.76rem;font-weight:700;cursor:pointer;}"+
+  ".cg-buy{background:var(--teal,#0f766e);color:#fff;} .cg-buy:disabled{background:var(--surface-2,#e7eceb);color:var(--ink-soft,#9aa);cursor:not-allowed;}"+
+  ".cg-equip{background:var(--surface-2,#eef4f3);color:var(--teal-deep,#0b5048);} .cg-on{background:transparent;color:var(--teal,#0f766e);}"+
+  ".cg-lock{background:var(--surface-2,#eef4f3);color:var(--ink-soft,#9aa);cursor:default;}"+
+  ".cg-prize-wrap{position:fixed;inset:0;z-index:10000;display:flex;align-items:center;justify-content:center;background:rgba(10,15,20,.55);padding:1.2rem;}"+
+  ".cg-prize{background:var(--surface,#fff);border-radius:22px;max-width:360px;width:100%;padding:1.6rem 1.3rem;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.4);}"+
+  ".cg-prize h3{margin:.2rem 0 .4rem;font-size:1.3rem;color:var(--ink,#17262b);} .cg-prize p{margin:.2rem 0 1rem;color:var(--ink-soft,#586a70);}"+
+  ".cg-prize button{border:none;border-radius:12px;padding:.6rem 1rem;font-weight:700;cursor:pointer;margin:.2rem;} .cg-prize .p1{background:var(--teal,#0f766e);color:#fff;}"+
+  ".ns-set{text-align:left;} .ns-set h3{text-align:center;}"+
+  ".ns-row{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.7rem 0;border-top:1px solid var(--line,#eef2f1);} .ns-row:first-of-type{border-top:none;}"+
+  ".ns-row .lab b{display:block;color:var(--ink,#17262b);font-size:.98rem;} .ns-row .lab span{display:block;font-size:.78rem;color:var(--ink-soft,#586a70);margin-top:.1rem;}"+
+  ".ns-sw{flex:0 0 auto;width:52px;height:30px;border-radius:999px;border:none;cursor:pointer;position:relative;background:var(--surface-2,#dfe6e4);} .ns-sw.on{background:var(--teal,#0f766e);}"+
+  ".ns-sw i{position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:#fff;transition:left .15s;box-shadow:0 1px 3px rgba(0,0,0,.25);} .ns-sw.on i{left:25px;}";
+  document.head.appendChild(css);
+
+  /* ---- closet overlay ---- */
+  var overlay=document.createElement("div"); overlay.className="lc-overlay hidden"; overlay.id="lcOverlay";
+  overlay.innerHTML=
+    '<div class="lc-sheet">'+
+      '<div class="cg-topbar"><button class="cg-back" id="lcClose">‹ Close</button><h2>Closet</h2></div>'+
+      '<div class="cg-hud"><canvas id="cgBig"></canvas><div class="cg-info">'+
+        '<div class="cg-pts"><span id="cgPts">0</span> <small>points</small></div>'+
+        '<div class="cg-prog"><i id="cgBar"></i></div><div class="cg-next" id="cgNext"></div>'+
+      '</div></div>'+
+      '<div class="cg-tabs" id="cgTabs"></div><div class="cg-grid" id="cgGrid"></div>'+
+    '</div>';
+  document.body.appendChild(overlay);
+  var bigCanvas=mkCanvas(6,equippedLayers,function(){return state.equip.bg;}); bigCanvas._keep=true;
+  overlay.querySelector("#cgBig").replaceWith(bigCanvas); bigCanvas.id="cgBig";
+  function closeCloset(){ overlay.classList.add("hidden"); }
+  overlay.querySelector("#lcClose").addEventListener("click", closeCloset);
+  overlay.addEventListener("click",function(e){ if(e.target===overlay) closeCloset(); });
+
+  var activeTab="outfit";
+  function renderTabs(){
+    var t=overlay.querySelector("#cgTabs"); t.innerHTML="";
+    TABS.forEach(function(slot){
+      var b=document.createElement("button"); b.className="cg-tab"+(slot===activeTab?" on":""); b.textContent=SLOT_LABEL[slot];
+      b.addEventListener("click",function(){ activeTab=slot; renderTabs(); renderGrid(); });
+      t.appendChild(b);
+    });
+  }
+  function thumbFor(slot,id){
+    if(slot==="outfit") return {L:["base",id,state.equip.hair],bg:state.equip.bg};
+    if(slot==="hair")   return {L:["base",state.equip.outfit,id],bg:state.equip.bg};
+    if(slot==="hat"||slot==="acc") return {L:["base",state.equip.outfit,state.equip.hair,id],bg:state.equip.bg};
+    return {L:["base",state.equip.outfit,state.equip.hair],bg:id};
+  }
+  function renderGrid(){
+    var g=overlay.querySelector("#cgGrid"); g.innerHTML="";
+    CANVASES=CANVASES.filter(function(c){return c._keep;});
+    CAT[activeTab].forEach(function(it){
+      var card=document.createElement("div"); card.className="cg-item"+(state.equip[activeTab]===it.id?" eq":"");
+      var tb=thumbFor(activeTab,it.id);
+      var cv=mkCanvas(3,(function(L){return function(){return L;};})(tb.L),(function(B){return function(){return B;};})(tb.bg));
+      card.appendChild(cv);
+      var nm=document.createElement("div"); nm.className="cg-nm"; nm.textContent=it.name; card.appendChild(nm);
+      var owned=has(it.id), equipped=state.equip[activeTab]===it.id, cost=costOf(it);
+      var btn=document.createElement("button");
+      if(equipped){ btn.className="cg-btn cg-on"; btn.textContent="Wearing"; btn.disabled=true; }
+      else if(owned){ btn.className="cg-btn cg-equip"; btn.textContent="Wear"; btn.onclick=function(){ equipItem(it.id); }; }
+      else if(it.prize){ btn.className="cg-btn cg-lock"; btn.textContent="🏆 "+it.prize+" earned"; btn.disabled=true; }
+      else { btn.className="cg-btn cg-buy"; btn.textContent=cost+" pts"; btn.disabled=state.pts<cost; btn.onclick=function(){ buyItem(it,cost); }; }
+      card.appendChild(btn); g.appendChild(card);
+    });
+  }
+  function slotOf(id){ for(var s in CAT){ for(var i=0;i<CAT[s].length;i++){ if(CAT[s][i].id===id) return s; } } return null; }
+  function equipItem(id){ var slot=slotOf(id); if(!slot) return; state.equip[slot]=id; save(); bigCanvas._draw(); renderGrid(); updateLauncher(); }
+  function buyItem(it,cost){ if(state.pts<cost||has(it.id)) return; state.pts-=cost; state.owned.push(it.id); var slot=slotOf(it.id); state.equip[slot]=it.id; save(); updateHUD(); bigCanvas._draw(); renderGrid(); updateLauncher(); }
+  function nextPrize(){ for(var i=0;i<PRIZES.length;i++){ if(state.earned<PRIZES[i].at) return PRIZES[i]; } return null; }
+  function updateHUD(){
+    var p=overlay.querySelector("#cgPts"); if(p) p.textContent=state.pts.toLocaleString();
+    var np=nextPrize(), bar=overlay.querySelector("#cgBar"), nx=overlay.querySelector("#cgNext");
+    if(np){ var prev=0; for(var i=0;i<PRIZES.length;i++){ if(PRIZES[i]===np){ prev=i>0?PRIZES[i-1].at:0; } }
+      var frac=Math.max(0,Math.min(1,(state.earned-prev)/(np.at-prev)));
+      if(bar) bar.style.width=(frac*100)+"%";
+      if(nx) nx.textContent=(np.at-state.earned).toLocaleString()+" more points earned → "+np.label;
+    } else { if(bar) bar.style.width="100%"; if(nx) nx.textContent="All prizes unlocked — you’re a legend 👑"; }
+  }
+  function openCloset(){ activeTab="outfit"; renderTabs(); renderGrid(); updateHUD(); bigCanvas._draw(); overlay.classList.remove("hidden"); overlay.scrollTop=0; }
+
+  /* ---- launcher + gear on the landing hero ---- */
+  var hero=document.querySelector(".hero")||document.querySelector(".wrap")||document.body;
+  var wrap=document.querySelector(".wrap")||document.body;
+  var gearRow=document.createElement("div"); gearRow.className="ns-gearrow";
+  var gear=document.createElement("button"); gear.className="ns-gear"; gear.type="button"; gear.title="Settings"; gear.setAttribute("aria-label","Settings"); gear.textContent="⚙";
+  gearRow.appendChild(gear); wrap.insertBefore(gearRow, wrap.firstChild);
+  gear.addEventListener("click", openSettings);
+
+  var launcher=document.createElement("button"); launcher.className="closet-launcher"; launcher.type="button";
+  var lcanvas=mkCanvas(2,equippedLayers,function(){return state.equip.bg;}); lcanvas._keep=true;
+  var ltxt=document.createElement("div"); ltxt.className="cl-txt";
+  ltxt.innerHTML='<b id="clPts"></b><span>Open closet ›</span>';
+  launcher.appendChild(lcanvas); launcher.appendChild(ltxt);
+  hero.insertAdjacentElement("afterend", launcher);
+  launcher.addEventListener("click", openCloset);
+  function updateLauncher(){ var e=document.getElementById("clPts"); if(e) e.textContent=state.pts.toLocaleString()+" points"; if(lcanvas._draw) lcanvas._draw(); }
+  function applyGameVisibility(){ launcher.style.display=gOn()?"flex":"none"; if(!gOn()) closeCloset(); }
+  updateLauncher(); applyGameVisibility();
+
+  /* ---- settings ---- */
+  function swRow(labelHtml,isOn,onToggle){
+    var row=document.createElement("div"); row.className="ns-row";
+    var lab=document.createElement("div"); lab.className="lab"; lab.innerHTML=labelHtml;
+    var sw=document.createElement("button"); sw.type="button"; sw.className="ns-sw"+(isOn?" on":""); sw.innerHTML="<i></i>";
+    sw.addEventListener("click",function(){ var now=!sw.classList.contains("on"); sw.classList.toggle("on",now); onToggle(now); });
+    row.appendChild(lab); row.appendChild(sw); return row;
+  }
+  function openSettings(){
+    var w=document.createElement("div"); w.className="cg-prize-wrap";
+    var panel=document.createElement("div"); panel.className="cg-prize ns-set";
+    var h=document.createElement("h3"); h.textContent="Settings"; panel.appendChild(h);
+    panel.appendChild(swRow('<b>Encouragement messages</b><span>Sweet notes after you finish a quiz.</span>', nOn(), function(v){ setNotes(v); }));
+    panel.appendChild(swRow('<b>Game &amp; rewards</b><span>Avatar, closet &amp; points. Points keep adding up even when this is hidden.</span>', gOn(), function(v){ setGame(v); applyGameVisibility(); }));
+    var done=document.createElement("button"); done.className="p1"; done.style.marginTop=".8rem"; done.textContent="Done"; done.onclick=function(){ w.remove(); };
+    panel.appendChild(done); w.appendChild(panel); document.body.appendChild(w);
+    w.addEventListener("click",function(e){ if(e.target===w) w.remove(); });
+  }
+})();
+</script>
+
 </body>
 </html>
