@@ -903,12 +903,41 @@ function finishQuiz(){
     });
   }
   show("view-results");
+  showLoveNote();
 }
 document.getElementById("retryMissed").addEventListener("click",()=>{
   const missedRaw=quiz.missed.map(m=>({ch:m.ch,type:m.type,fmt:m.fmt,stem:m.stem,options:m.options,correct:m.correct,rationale:m.rationale}));
   startQuiz(shuffle(missedRaw),quiz.mode);
 });
 document.getElementById("newQuiz").addEventListener("click",()=>openSetup(quiz.mode));
+
+function showLoveNote(){
+  setTimeout(function(){
+    try{
+      if(!document.getElementById('loveNoteStyle')){
+        var st=document.createElement('style');st.id='loveNoteStyle';
+        st.textContent='@keyframes loveIn{0%{opacity:0;transform:translate(-50%,18px) scale(.95)}100%{opacity:1;transform:translate(-50%,0) scale(1)}}'
+        +'@keyframes loveOut{0%{opacity:1;transform:translate(-50%,0)}100%{opacity:0;transform:translate(-50%,12px)}}'
+        +'.love-note{position:fixed;left:50%;bottom:calc(26px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:9999;'
+        +'max-width:min(90vw,430px);background:linear-gradient(135deg,#be123c,#9d174d);color:#fff;'
+        +'padding:.95rem 1.25rem;border-radius:18px;box-shadow:0 12px 36px rgba(157,23,77,.45);'
+        +'font-size:1.03rem;font-weight:600;text-align:center;line-height:1.4;cursor:pointer;'
+        +'display:flex;align-items:center;gap:.6rem;animation:loveIn .55s cubic-bezier(.2,.8,.2,1) both;}'
+        +'.love-note .lh{font-size:1.3rem;line-height:1;flex:0 0 auto}'
+        +'.love-note.hide{animation:loveOut .5s ease forwards}';
+        document.head.appendChild(st);
+      }
+      var old=document.getElementById('loveNote'); if(old) old.remove();
+      var n=document.createElement('div'); n.id='loveNote'; n.className='love-note';
+      n.setAttribute('role','status');
+      n.innerHTML='<span class="lh" aria-hidden="true">❤️</span><span>Good job baby, your husband loves you</span>';
+      var dismiss=function(){ if(!n.parentNode) return; n.classList.add('hide'); setTimeout(function(){ if(n.parentNode) n.remove(); },520); };
+      n.addEventListener('click',dismiss);
+      document.body.appendChild(n);
+      setTimeout(dismiss, 6500);
+    }catch(e){}
+  }, 800);
+}
 
 /* ---- boot ---- */
 renderHome();
