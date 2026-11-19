@@ -679,7 +679,7 @@ function renderHome(){
     grid.appendChild(b);
   });
 }
-function goHome(){renderHome();show("view-home");}
+function goHome(){var _fromResults=!document.getElementById("view-results").classList.contains("hidden");renderHome();show("view-home");if(_fromResults)showLoveNote();}
 if(store.get("tipDismissed")==="1"){const t=document.getElementById("installTip");if(t)t.style.display="none";}
 document.getElementById("dismissTip").addEventListener("click",()=>{document.getElementById("installTip").style.display="none";store.set("tipDismissed","1");});
 
@@ -903,7 +903,6 @@ function finishQuiz(){
     });
   }
   show("view-results");
-  showLoveNote();
 }
 document.getElementById("retryMissed").addEventListener("click",()=>{
   const missedRaw=quiz.missed.map(m=>({ch:m.ch,type:m.type,fmt:m.fmt,stem:m.stem,options:m.options,correct:m.correct,rationale:m.rationale}));
@@ -930,7 +929,7 @@ function showLoveNote(){
       var old=document.getElementById('loveNote'); if(old) old.remove();
       var n=document.createElement('div'); n.id='loveNote'; n.className='love-note';
       n.setAttribute('role','status');
-      n.innerHTML='<span class="lh" aria-hidden="true">❤️</span><span>Good job baby, your husband loves you</span>';
+      var _notes=["Good job baby, your husband loves you","You got this sweetie!","我真的很爱你","我为你感到非常骄傲","Keep going, you are almost there!"];n.innerHTML='<span class="lh" aria-hidden="true">❤️</span><span class="lt"></span>';n.querySelector(".lt").textContent=_notes[Math.floor(Math.random()*_notes.length)];
       var dismiss=function(){ if(!n.parentNode) return; n.classList.add('hide'); setTimeout(function(){ if(n.parentNode) n.remove(); },520); };
       n.addEventListener('click',dismiss);
       document.body.appendChild(n);
